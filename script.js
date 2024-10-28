@@ -11,3 +11,21 @@ function getComputerChoice() {
             return "scissors";
     }
 }
+
+function getHumanChoice() {
+    let humanChoice;
+    while (true) {
+        humanChoice = prompt("Jankenpon!").toLowerCase();
+        if (humanChoice === "paper") {
+            return "paper";
+        }
+        else if (humanChoice === "rock") {
+            return "rock";
+        }
+        else if (humanChoice === "scissors") {
+            return "scissors";
+        }
+        else console.log("Choose between: rock, paper or scissors");
+
+    }
+}
