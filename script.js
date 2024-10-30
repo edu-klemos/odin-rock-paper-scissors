@@ -15,14 +15,15 @@ function getComputerChoice() {
 function getHumanChoice() {
     let humanChoice;
     while (true) {
-        humanChoice = prompt("Jankenpon!").toLowerCase();
-        if (humanChoice === "paper") {
+        humanChoice = prompt("Jankenpon!");
+        if (!humanChoice) continue;
+        if (humanChoice.toLowerCase() === "paper") {
             return "paper";
         }
-        else if (humanChoice === "rock") {
+        else if (humanChoice.toLowerCase() === "rock") {
             return "rock";
         }
-        else if (humanChoice === "scissors") {
+        else if (humanChoice.toLowerCase() === "scissors") {
             return "scissors";
         }
         else console.log("Choose between: rock, paper or scissors");
