@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     randomNumber = Math.floor(Math.random() * 3);
     switch (randomNumber) {
@@ -12,84 +15,63 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let humanChoice;
-    while (true) {
-        humanChoice = prompt("Jankenpon!");
-        if (!humanChoice) continue;
-        if (humanChoice.toLowerCase() === "paper") {
-            return "paper";
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === "rock") {
+        if (computerChoice === "scissors") {
+            console.log("You win! Rock beats Scissors.");
+            humanScore++;
+            return;
         }
-        else if (humanChoice.toLowerCase() === "rock") {
-            return "rock";
-        }
-        else if (humanChoice.toLowerCase() === "scissors") {
-            return "scissors";
-        }
-        else console.log("Choose between: rock, paper or scissors");
 
+        if (computerChoice === "paper") {
+            console.log("You loose! Paper beats Rock.");
+            computerScore++;
+            return;
+        }
+        
     }
+
+    if (humanChoice === "paper") {
+        if (computerChoice === "rock") {
+            console.log("You win! Paper beats Rock.");
+            humanScore++;
+            return;
+        }
+        if (computerChoice === "scissors") {
+            console.log("You loose! Scissors beats Paper");
+            computerScore++;
+            return;
+        }
+    }
+
+    if (humanChoice === "scissors") {
+        if (computerChoice === "paper") {
+            console.log("You win! Scissors beats Paper");
+            humanScore++;
+            return;
+        }
+        if (computerChoice === "rock") {
+            console.log("You loose! Rock beats Scissors");
+            computerScore++;
+            return;
+        }
+    }
+    console.log("Draw Round!");
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+const buttons = document.querySelector("#player-buttons");
+buttons.addEventListener('click', (event) => {
+    const target = event.target;
 
-    function playRound(humanChoice, computerChoice) {
-        if (humanChoice === "rock") {
-            if (computerChoice === "scissors") {
-                console.log("You win! Rock beats Scissors.");
-                humanScore++;
-                return;
-            }
-
-            if (computerChoice === "paper") {
-                console.log("You loose! Paper beats Rock.");
-                computerScore++;
-                return;
-            }
-            
-        }
-
-        if (humanChoice === "paper") {
-            if (computerChoice === "rock") {
-                console.log("You win! Paper beats Rock.");
-                humanScore++;
-                return;
-            }
-            if (computerChoice === "scissors") {
-                console.log("You loose! Scissors beats Paper");
-                computerScore++;
-                return;
-            }
-        }
-
-        if (humanChoice === "scissors") {
-            if (computerChoice === "paper") {
-                console.log("You win! Scissors beats Paper");
-                humanScore++;
-                return;
-            }
-            if (computerChoice === "rock") {
-                console.log("You loose! Rock beats Scissors");
-                computerScore++;
-                return;
-            }
-        }
-        console.log("Draw Round!");
+    switch(target.id) {
+        case "rock":
+            playRound("rock", getComputerChoice());
+            break;
+        case "paper":
+            playRound("paper", getComputerChoice());
+            break;
+        case "scissors":
+            playRound("scissors", getComputerChoice());
+            break;
     }
-    for (let i = 0; i < 5; i++) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
-    if (humanScore > computerScore) {
-        console.log("Congratulations! You win!");
-    }
-    else if (humanScore < computerScore) {
-        console.log("Oh no... The computer wins");
-    }
-    else {
-        console.log("It's a draw")
-    }
-}
-
-playGame();
+});
