@@ -42,8 +42,19 @@ function updateUI(playerChoice, computerChoice, roundResult, humanScore, compute
     computerPoints.textContent = `Computer Score: ${computerScore}`;
 }
 
-function checkWinner() {
+function checkWinner(humanScore, computerScore) {
+    if (humanScore !== 5 && computerScore !== 5) return;
+    
+    const winner = document.querySelector("#winner");
+    
+    if (humanScore == 5) winner.textContent = "Congratulations, you win!";
+    else winner.textContent = "Oh no... You loose!";
 
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+    
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -89,7 +100,7 @@ function playRound(humanChoice, computerChoice) {
     if (roundResult === undefined) roundResult = "Draw round!"
 
     updateUI(humanChoice, computerChoice, roundResult, humanScore, computerScore);
-    checkWinner();
+    checkWinner(humanScore, computerScore);
 }
 
 const buttons = document.querySelector("#player-buttons");
