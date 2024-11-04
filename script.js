@@ -1,5 +1,16 @@
-let humanScore = 0;
-let computerScore = 0;
+const humanScoreCounter = (function() {
+    let humanScore = 0;
+
+    return (win = false) => win ? ++humanScore : humanScore;
+
+})();
+
+const computerScoreCounter = (function() {
+    let computerScore = 0;
+
+    return (win = false) => win ? ++computerScore : computerScore;
+
+})();
 
 function getComputerChoice() {
     randomNumber = Math.floor(Math.random() * 3);
@@ -15,7 +26,7 @@ function getComputerChoice() {
     }
 }
 
-function updateUI(playerChoice, computerChoice, roundResult) {
+function updateUI(playerChoice, computerChoice, roundResult, humanScore, computerScore) {
     const playerChoiceUI = document.querySelector("#player-choice");
     const computerChoiceUI = document.querySelector("#computer-choice");
     const resultUI = document.querySelector("#round-result")
@@ -32,20 +43,23 @@ function updateUI(playerChoice, computerChoice, roundResult) {
 }
 
 function checkWinner() {
-    
+
 }
 
 function playRound(humanChoice, computerChoice) {
     let roundResult;
+    let humanScore = humanScoreCounter();
+    let computerScore = computerScoreCounter();
+
     if (humanChoice === "rock") {
         if (computerChoice === "scissors") {
             roundResult = "You win! Rock beats Scissors.";
-            humanScore++;
+            humanScore = humanScoreCounter(win = true);
         }
 
         if (computerChoice === "paper") {
             roundResult = "You loose! Paper beats Rock.";
-            computerScore++;
+            computerScore = computerScoreCounter(win = true);
         }
         
     }
@@ -53,28 +67,29 @@ function playRound(humanChoice, computerChoice) {
     if (humanChoice === "paper") {
         if (computerChoice === "rock") {
             roundResult = "You win! Paper beats Rock.";
-            humanScore++;
+            humanScore = humanScoreCounter(win = true);
         }
         if (computerChoice === "scissors") {
             roundResult = "You loose! Scissors beats Paper";
-            computerScore++;
+            computerScore = computerScoreCounter(win = true);
         }
     }
 
     if (humanChoice === "scissors") {
         if (computerChoice === "paper") {
             roundResult = "You win! Scissors beats Paper";
-            humanScore++;
+            humanScore = humanScoreCounter(win = true);
         }
         if (computerChoice === "rock") {
             roundResult = "You loose! Rock beats Scissors";
-            computerScore++;
+            computerScore = computerScoreCounter(win = true);
         }
     }
 
     if (roundResult === undefined) roundResult = "Draw round!"
 
-    updateUI(humanChoice, computerChoice, roundResult);
+    updateUI(humanChoice, computerChoice, roundResult, humanScore, computerScore);
+    checkWinner();
 }
 
 const buttons = document.querySelector("#player-buttons");
